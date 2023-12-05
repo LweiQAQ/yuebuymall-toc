@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+    <script>
+
+
+        let body = document.querySelector('body');
+        let btn = document.createElement("button");
+        btn.textContent = '请求数据';
+        body.appendChild(btn);
+
+
+
+        function request(url){
+            return new Promise((resolve, reject) => {
+                let xhr = new XMLHttpRequest();
+                xhr.responseType = 'json'
+                xhr.open('get',url);
+                xhr.send();
+
+                xhr.onreadystatechange = function(){
+                    if(xhr.readyState === 4){
+                        if(xhr.status === 200){
+                            resolve(xhr.response)
+                        }else{
+                            reject(xhr.status)
+                        }
+                    }
+                }
+            })
+        }
+
+        btn.addEventListener('click', async function(){
+            let result = await request('http://www.lweiqaq.top/api/product/getBaseCategoryList')
+            if(result.code == 200){
+                alert('请求成功')
+                console.log(result.data);
+            }else{
+                alert('请求失败,状态码为'+result.code)
+            }
+        })
+    </script>
+</body>
+
+</html>
