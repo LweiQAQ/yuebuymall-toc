@@ -5,7 +5,7 @@ const actions ={
         let result = await reqCode(phone)
         if(result.code == 200){
             context.commit('GETCODE',result.data)
-            return 'ok'
+            return result.data
         }else{
             return Promise.reject(new Error('faile'))
         }
@@ -20,7 +20,7 @@ const actions ={
     }
 }
 const mutations = {
-    GETCODE(state,code){
+    GETCODE(state,code){ 
         state.code = code
     }
 }
