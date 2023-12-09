@@ -13,7 +13,7 @@
           </el-form-item>
           <el-form-item label="验证码" prop="code">
             <el-input v-model="info.code" class="input"></el-input>
-            <el-button type="success" @click="getCode('phone')" :disabled="info.valid != 'success' ? true : false">获取验证码</el-button>
+            <el-button type="success" @click="getCode('phone')" :disabled="info.valid != 'success' ? true : false">{{ time }}</el-button>
           </el-form-item>
           <el-form-item label="密码" prop="password">
             <el-input v-model="info.password" class="input"></el-input>
@@ -52,6 +52,7 @@
 
 <script>
   import login from '@/store/login'
+import { set } from 'nprogress'
 import {
     mapState
   } from 'vuex'
@@ -78,6 +79,8 @@ import {
           type:[],
           valid:''
         },
+        timer:null,
+        time:'获取验证码',
         rules: {
           phone: [{
               required: true,
@@ -138,23 +141,30 @@ import {
 
     methods: {
       async getCode(phone) {
-            let valid = this.$refs[phone].validateState
-            if(valid == 'success'){
-              try {
+            try {
                 let result = await this.$store.dispatch('register/getCode', this.info.phone)
-                this.$message({
-                  message: '验证码是:' + result,
-                  type: 'success'
-                })
-            } catch (error) {
-              this.$message.error('获取验证码失败')
-            }
-          }else{
-            return false;
-          }
-      },
+                    this.$message({
+                      message: '验证码是:' + result,
+                      type: 'success'
+                    })
+                    let time = 60
+                    this.info.valid = ''
+                    this.timer = setInterval(() => {
+                        time -= 1
+                        this.time = time + 's后重发'
+                        if(time <= 0){
+                        clearInterval(this.timer)
+                        this.info.valid = 'success'
+                        this.time = '获取验证码'
+                      }
+                    },1000)
+                    
+                  }catch (error) {
+                    this.$message.error('获取验证码失败')
+                }
+          },
+      
       regUser(info) {
-        
         this.$refs[info].validate(async (valid) => {
           if (valid) {
             const {phone,password,password1,code} = this.info
@@ -188,7 +198,7 @@ import {
     watch:{
       
     },
-   
+  
   }
 </script>
 
