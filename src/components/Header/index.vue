@@ -5,7 +5,7 @@
       <div class="top">
         <div class="container">
           <div class="loginList">
-            <p>尚品汇欢迎您！</p>
+            <p>悦购商城欢迎您！</p>
             <p v-if="!userInfo.name">
               <span>请</span>
               <router-link :to="{ name: 'login' }">登陆</router-link>
@@ -19,10 +19,10 @@
           <div class="typeList">
             <router-link to='/center'> 我的订单</router-link>
             <router-link to='/shopcart'> 我的购物车</router-link>
-            <a href="###">我的尚品汇</a>
-            <a href="###">尚品汇会员</a>
+            <a href="###">我的悦购</a>
+            <a href="###">悦购会员</a>
             <a href="###">企业采购</a>
-            <a href="###">关注尚品汇</a>
+            <a href="https://space.bilibili.com/42833437" target="_blank">关注悦购</a>
             <a href="###">合作招商</a>
             <a href="###">商家后台</a>
           </div>
@@ -31,7 +31,7 @@
       <!--头部第二行 搜索区域-->
       <div class="bottom">
         <h1 class="logoArea">
-          <router-link class="logo" title="尚品汇" :to="{ name: 'home' }">
+          <router-link class="logo" title="悦购商城" :to="{ name: 'home' }">
             <img src="./image/logo.png" alt="" />
           </router-link>
         </h1>
