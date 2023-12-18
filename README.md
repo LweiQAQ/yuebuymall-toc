@@ -1,6 +1,6 @@
 # 悦购商城 - 网上购物商城
 
-**项目上线地址**:http://www.lweiqaq.top/one/index.html#/home
+**项目上线地址**:http://www.lweiqaq.top/mall/index.html#/home
 
 ## 项目描述
 
